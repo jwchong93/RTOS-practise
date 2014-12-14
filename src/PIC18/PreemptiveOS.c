@@ -1,11 +1,10 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "PreemptiveOS.h"
-#include "PriorityLinkedList.h"
 #include "TCB.h"
-#include "Types.h"
+#include "PriorityLinkedList.h"
+
 
 #if !(defined(__XC) || defined(__18CXX))
   #include "usart.h"
@@ -23,7 +22,7 @@ void taskTwo(void);
 TCB *runningTCB;
 TCB allTCBs[3];
 uint8 stacks[2][80];
-PriorityLinkedList readyQueue = {NULL, NULL};
+PriorityLinkedList readyQueue;
 
 void createTask(TCB TCBs[], int index, void(*task)(void)) {
     TCBs[index].next = NULL;
@@ -34,6 +33,8 @@ void createTask(TCB TCBs[], int index, void(*task)(void)) {
 }
 
 void initPreemptiveMultitasking(void) {
+    readyQueue.head=NULL;
+    readyQueue.tail=NULL;
     runningTCB = &allTCBs[0];
     runningTCB->next = NULL;
     runningTCB->priority = 0;
