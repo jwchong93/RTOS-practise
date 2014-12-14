@@ -1,7 +1,8 @@
 #include "mutex.h"
 #include <malloc.h>
 #include "PreemptiveOS.h"
-
+#include "TCB.h"
+#include "PriorityLinkedList.h"
 PriorityLinkedList waitingQueue;
 extern TCB *runningTCB;
 TCB *AcquiredMutexTCB;
@@ -28,11 +29,24 @@ int acquireMutex(mutexData * data)
 		AcquiredMutexTCB = runningTCB;
 		return 1;
 	}
-	return 0;
+	else
+	{
+		addPriorityLinkedList(&waitingQueue,runningTCB);
+		return 0;
+	}
+	
 }
 
 int releaseMutex(mutexData *data)
 {
-	data->state = UNLOCKED;
-	data->count--;
+	if(runningTCB == AcquiredMutexTCB)
+	{
+		
+		data->count--;
+		if(data->count==0)
+		{
+			AcquiredMutexTCB = NULL;
+			data->state = UNLOCKED;
+		}
+	}
 }
