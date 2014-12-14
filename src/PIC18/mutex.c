@@ -45,8 +45,9 @@ int releaseMutex(mutexData *data)
 		data->count--;
 		if(data->count==0)
 		{
-			AcquiredMutexTCB = NULL;
-			data->state = UNLOCKED;
+			AcquiredMutexTCB = removeFromHeadPriorityLinkedList(&waitingQueue);
+			if(AcquiredMutexTCB ==NULL)
+				data->state = UNLOCKED;
 		}
 	}
 }

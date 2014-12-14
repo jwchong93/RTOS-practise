@@ -10,7 +10,8 @@ extern TCB *runningTCB;
 extern TCB *AcquiredMutexTCB;
 void setUp(void)
 {
-	
+	waitingQueue.head = NULL;
+	waitingQueue.tail = NULL;
 	
 }
 
@@ -201,6 +202,7 @@ void test_releaseMutex_will_reset_AcquiredMutexTCB_to_NULL()
 	status = acquireMutex(&firstMutex);
 	TEST_ASSERT_EQUAL(&TCB1,AcquiredMutexTCB);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex.state);
+	TEST_ASSERT_EQUAL(1,firstMutex.count);
 	status = releaseMutex(&firstMutex);
 	TEST_ASSERT_NULL(AcquiredMutexTCB);
 	TEST_ASSERT_EQUAL(UNLOCKED,firstMutex.state);
@@ -263,4 +265,26 @@ void test_releaseMutex_will_not_release_the_mutex_if_the_it_does_not_execute_sam
 	TEST_ASSERT_EQUAL(&TCB1,AcquiredMutexTCB);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex.state);
 	TEST_ASSERT_EQUAL(1,firstMutex.count);
+}
+
+void test_releaseMutex_change_AcquiredMutexTCB_to_the_second_TCB_if_its_tried_to_acquire_before()
+{
+	mutexData firstMutex;
+	TCB TCB1,TCB2;
+	
+	int status;
+	firstMutex.state =UNLOCKED;
+	firstMutex.count =0;
+	runningTCB = &TCB1;
+	status = acquireMutex(&firstMutex);
+	TEST_ASSERT_EQUAL(1,firstMutex.count);
+	runningTCB = &TCB2;
+	status = acquireMutex(&firstMutex);
+	TEST_ASSERT_EQUAL(1,firstMutex.count);
+	TEST_ASSERT_EQUAL(&TCB1,AcquiredMutexTCB);
+	TEST_ASSERT_EQUAL(LOCKED,firstMutex.state);
+	runningTCB = &TCB1;
+	status = releaseMutex(&firstMutex);
+	TEST_ASSERT_EQUAL(&TCB2,AcquiredMutexTCB);
+	TEST_ASSERT_EQUAL(LOCKED,firstMutex.state);
 }

@@ -381,6 +381,18 @@ void test_removePriorityLinkedList_will_remove_the_only_element_inside_the_list(
 }
 */
 
+
+void test_removeFromHeadPriorityLinkedList_will_return_NULL_if_it_is_empty()
+{
+	//Make sure the element is added to the list 
+	PriorityLinkedList testList;
+	void * returnedElement=(void*)100;
+	testList.head = NULL;
+	testList.tail = NULL;
+	returnedElement = removeFromHeadPriorityLinkedList(&testList);
+	TEST_ASSERT_NULL(returnedElement);
+}
+
 void test_removeFromHeadPriorityLinkedList_will_return_the_first_element()
 {
 	//Make sure the element is added to the list 
