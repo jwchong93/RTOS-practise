@@ -1,6 +1,5 @@
 #include "PriorityLinkedList.h"
 #include <stdio.h>
-
 void _addPriorityLinkedList(PriorityLinkedList *list,void *data,int compare(void *, void *)) 
 {
 	

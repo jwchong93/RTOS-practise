@@ -3,35 +3,31 @@
 #include "PreemptiveOS.h"
 #include "TCB.h"
 #include "PriorityLinkedList.h"
-PriorityLinkedList waitingQueue;
 extern TCB *runningTCB;
-TCB *AcquiredMutexTCB;
-// PriorityLinkedList waitingQueue;
-// TCB runningTCB;
 
 mutexData* initMutex()
 {
 	mutexData *newMutex = malloc(sizeof(mutexData));
 	newMutex->count = 0;
 	newMutex->state = UNLOCKED;
-	readyQueue.head=NULL;
-	readyQueue.tail=NULL;
-	AcquiredMutexTCB = NULL;
+	newMutex->waitingQueue.head= NULL;
+	newMutex->waitingQueue.tail= NULL;
+	newMutex->owner = NULL;
 	return newMutex;
 }
 
 int acquireMutex(mutexData * data)
 {
-	if(runningTCB == AcquiredMutexTCB || AcquiredMutexTCB ==NULL)
+	if(runningTCB == data->owner || data->owner ==NULL)
 	{
 		data->state =LOCKED;
 		data->count++;
-		AcquiredMutexTCB = runningTCB;
+		data->owner = runningTCB;
 		return 1;
 	}
 	else
 	{
-		addPriorityLinkedList(&waitingQueue,runningTCB);
+		addPriorityLinkedList(&data->waitingQueue,runningTCB);
 		return 0;
 	}
 	
@@ -39,14 +35,14 @@ int acquireMutex(mutexData * data)
 
 int releaseMutex(mutexData *data)
 {
-	if(runningTCB == AcquiredMutexTCB)
+	if(runningTCB == data->owner)
 	{
 		
 		data->count--;
 		if(data->count==0)
 		{
-			AcquiredMutexTCB = removeFromHeadPriorityLinkedList(&waitingQueue);
-			if(AcquiredMutexTCB ==NULL)
+			data->owner = removeFromHeadPriorityLinkedList(&data->waitingQueue);
+			if(data->owner ==NULL)
 				data->state = UNLOCKED;
 		}
 	}

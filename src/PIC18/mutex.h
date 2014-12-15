@@ -9,10 +9,10 @@ typedef enum {LOCKED,UNLOCKED}state;
 typedef struct mutexData mutexData;
 struct mutexData 
 {
-	int state;
+	state state;
 	int count;
-	PriorityLinkedList waitingList;
-	
+	TCB *owner; //AcquiredMutexTCB
+	PriorityLinkedList waitingQueue;
 };
 
 mutexData* initMutex();
