@@ -21,7 +21,6 @@ void test_ledInit() {
 void test_ledSM_given_LED_START(void) {
   LEDData ledData = {.state = LED_START, .currentClock = 0};
   getClock_ExpectAndReturn(400);
-  getClock_ExpectAndReturn(400);
   ledSM(&ledData);
   TEST_ASSERT_EQUAL(LED_OFF, ledData.state);
   TEST_ASSERT_EQUAL(400, ledData.currentClock);

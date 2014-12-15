@@ -2,7 +2,6 @@
 #include "Interrupt.h"
 #include "PreemptiveOS.h"
 #include "TCB.h"
-#include "Types.h"
 #include "../18c.h"
 #if !(defined(__XC) || defined(__18CXX))
   #include "timers.h"

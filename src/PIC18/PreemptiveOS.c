@@ -21,8 +21,11 @@ void taskTwo(void);
 
 TCB *runningTCB;
 TCB allTCBs[3];
-uint8 stacks[2][80];
+
 PriorityLinkedList readyQueue;
+#pragma udata BIGDATA
+uint8 stacks[2][250];
+#pragma udata
 
 void createTask(TCB TCBs[], int index, void(*task)(void)) {
     TCBs[index].next = NULL;
