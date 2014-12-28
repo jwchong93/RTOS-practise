@@ -10,7 +10,7 @@
 #endif // __18CXX
 
 volatile unsigned long clock;
-uint8 workingReg, bankSelectReg, statusReg, tosHi, tosLo;
+uint8 workingReg, bankSelectReg, statusReg, tosH, tosL;
 uint16 task, stackPointer;
 
 #pragma code high_vector = 0x08
@@ -23,49 +23,35 @@ void highPriorityIsr(void) {
 
 #pragma interruptlow timer0Isr save=FSR2L
 void timer0Isr(void) {
-  TCB *newTCB;
-
-  tosHi = TOSH;
-  tosLo = TOSL;
-
-  //_asm
-    //movff   WREG, workingReg
-    //movff   STATUS, statusReg
-    //movff   BSR, bankSelectReg
-    //movff   TOSU, tosUp
-    //movff   TOSH, tosHi
-    //movff   TOSL, tosLo
-  //_endasm
-  // 1) Save all data above into TCB pointed by runningTCB
-  // 2) Get the highest priority task from the priority linked-list
-  // 3) Insert the runningTCB into the priority linked-list
-  // 4) Restore all data in high priority task to
-  //     1) TOS
-  //     ii)Stack pointer
-  // 5) Return from interrupt
-  // Backup important data
+    TCB *newTCB;
+    
+    tosH = TOSH;
+    tosL = TOSL;
   
-  task = ((uint16)tosHi)<<8 | tosLo;
-  //task = tosLo + ((int)tosHi)<<8;
-  runningTCB->task = task;
-  stackPointer = FSR1;
-  runningTCB->stackPointer = stackPointer;
-  //runningTCB->stackPointer = FSR1;
-  newTCB = removeFromHeadPriorityLinkedList(&readyQueue);
-  //runningTCB->stackPointer = FSR1;
-  addPriorityLinkedList(&readyQueue, runningTCB);
-  runningTCB = newTCB;
+    task = ((uint16)tosH)<<8 | tosL;
+    runningTCB->task = task;
+    runningTCB->stackPointer = (uint16)FSR1H<<8 | FSR1;
+    
+    newTCB = removeFromHeadPriorityLinkedList(&readyQueue);
+    addPriorityLinkedList(&readyQueue, runningTCB);
+    runningTCB = newTCB;
+    tosL = runningTCB->task;
+    tosH = (runningTCB->task)>>8;
+    FSR1 = runningTCB->stackPointer;
+    FSR1H = runningTCB->stackPointer>>8;
 
-  tosLo = runningTCB->task;
-  tosHi = (runningTCB->task)>>8;
 
-  _asm
-    movff   tosHi, WREG
+
+_asm
+    movff   tosH, WREG
     movwf   TOSH, ACCESS
-    movff   tosLo, WREG
+    movff   tosL, WREG
     movwf   TOSL, ACCESS
-  _endasm
-   clearTimer0Overflowed();
+_endasm
+
+
+    clearTimer0Overflowed();
+   
 }
 
 void initClock(void) {

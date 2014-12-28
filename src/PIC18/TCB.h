@@ -24,7 +24,7 @@ struct TCB
 {
 	TCB *next;
 	char priority;
-	int taskId; //For debugging purpose
+	//int taskId; //For debugging purpose
 	//char PC[3];
 	uint16 stackPointer;
 	uint16 framePointer;

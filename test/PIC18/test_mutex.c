@@ -6,8 +6,13 @@
 #include "PriorityLinkedList.h"
 
 extern TCB *runningTCB;
+extern PriorityLinkedList readyQueue;
+extern int addStatus;
 void setUp(void)
 {
+	readyQueue.head = NULL;
+	readyQueue.tail = NULL;
+	addStatus = 0;
 	
 }
 
@@ -64,6 +69,7 @@ void test_acquireMutex_return_1_when_succcessfully_acquire(void)
 	status = acquireMutex(firstMutex);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex->state);
 	TEST_ASSERT_EQUAL(1,status);
+	free(firstMutex);
 }
 
 void test_acquireMutex_will_change_owner_to_the_runningTCB()
@@ -76,7 +82,7 @@ void test_acquireMutex_will_change_owner_to_the_runningTCB()
 	firstMutex->state =UNLOCKED;
 	status = acquireMutex(firstMutex);
 	TEST_ASSERT_EQUAL(&TCB1,firstMutex->owner);
-	
+	free(firstMutex);
 }
 
 void test_acquireMutex_will_not_change_owner_for_different_TCB()
@@ -91,6 +97,7 @@ void test_acquireMutex_will_not_change_owner_for_different_TCB()
 	runningTCB = &TCB2;
 	status = acquireMutex(firstMutex);
 	TEST_ASSERT_EQUAL(&TCB1,firstMutex->owner);
+	free(firstMutex);
 }
 
 void test_acquireMutex_return_0_for_different_TCB()
@@ -106,6 +113,7 @@ void test_acquireMutex_return_0_for_different_TCB()
 	runningTCB = &TCB2;
 	status = acquireMutex(firstMutex);
 	TEST_ASSERT_EQUAL(0,status);
+	free(firstMutex);
 
 
 }
@@ -122,6 +130,7 @@ void test_acquireMutex_will_add_the_next_TCB_into_the_waiting_queue()
 	runningTCB = &TCB2;
 	status = acquireMutex(firstMutex);
 	TEST_ASSERT_EQUAL(&TCB2,firstMutex->waitingQueue.head);
+	free(firstMutex);
 }
 
 void test_acquireMutex_for_different_TCB_will_not_change_the_state_and_count()
@@ -154,6 +163,7 @@ void test_acquireMutex_for_different_TCB_will_not_change_the_state_and_count()
 	status = acquireMutex(firstMutex);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex->state);
 	TEST_ASSERT_EQUAL(1,firstMutex->count);
+	free(firstMutex);
 
 }
 
@@ -181,6 +191,7 @@ void test_releaseMutex_been_call_multiple_time_will_further_decrease_the_number_
 	TEST_ASSERT_EQUAL(5,firstMutex->count);
 	releaseMutex(firstMutex);
 	TEST_ASSERT_EQUAL(4,firstMutex->count);
+	free(firstMutex);
 }
 
 void test_releaseMutex_will_reset_owner_to_NULL()
@@ -199,6 +210,7 @@ void test_releaseMutex_will_reset_owner_to_NULL()
 	status = releaseMutex(firstMutex);
 	TEST_ASSERT_NULL(firstMutex->owner);
 	TEST_ASSERT_EQUAL(UNLOCKED,firstMutex->state);
+	free(firstMutex);
 }
 
 void test_releaseMutex_will_not_change_any_data_if_the_TCB_is_different()
@@ -218,6 +230,7 @@ void test_releaseMutex_will_not_change_any_data_if_the_TCB_is_different()
 	status = releaseMutex(firstMutex);
 	TEST_ASSERT_EQUAL(&TCB1,firstMutex->owner);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex->state);
+	free(firstMutex);
 	
 }
 
@@ -239,6 +252,7 @@ void test_releaseMutex_must_be_execute_same_time_with_the_acquireMutex_to_releas
 	TEST_ASSERT_NULL(firstMutex->owner);
 	TEST_ASSERT_EQUAL(UNLOCKED,firstMutex->state);
 	TEST_ASSERT_EQUAL(0,firstMutex->count);
+	free(firstMutex);
 }
 
 void test_releaseMutex_will_not_release_the_mutex_if_the_it_does_not_execute_same_times_with_acqurie()
@@ -258,6 +272,7 @@ void test_releaseMutex_will_not_release_the_mutex_if_the_it_does_not_execute_sam
 	TEST_ASSERT_EQUAL(&TCB1,firstMutex->owner);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex->state);
 	TEST_ASSERT_EQUAL(1,firstMutex->count);
+	free(firstMutex);
 }
 
 void test_releaseMutex_change_owner_to_the_second_TCB_if_its_tried_to_acquire_before()
@@ -280,4 +295,5 @@ void test_releaseMutex_change_owner_to_the_second_TCB_if_its_tried_to_acquire_be
 	status = releaseMutex(firstMutex);
 	TEST_ASSERT_EQUAL(&TCB2,firstMutex->owner);
 	TEST_ASSERT_EQUAL(LOCKED,firstMutex->state);
+	free(firstMutex);
 }

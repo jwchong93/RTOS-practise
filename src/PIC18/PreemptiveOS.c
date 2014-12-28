@@ -5,6 +5,7 @@
 #include "TCB.h"
 #include "PriorityLinkedList.h"
 
+#include "mutex.h"
 
 #if !(defined(__XC) || defined(__18CXX))
   #include "usart.h"
@@ -21,17 +22,21 @@ void taskTwo(void);
 
 TCB *runningTCB;
 TCB allTCBs[3];
-
 PriorityLinkedList readyQueue;
+extern mutexData mutex1,mutex2;
 #pragma udata BIGDATA
-uint8 stacks[2][250];
+uint8 stacks[2][350];
 #pragma udata
 
+void setTimer0Overflowed(void) {
+  INTCONbits.TMR0IF = 1;
+}
 void createTask(TCB TCBs[], int index, void(*task)(void)) {
     TCBs[index].next = NULL;
     TCBs[index].priority = 0;
     TCBs[index].task = (uint16)task;
-    TCBs[index].stackPointer = (int)&stacks[index-1];
+    TCBs[index].stackPointer = (uint16)&stacks[index-1][35];
+    stacks[index-1][4] = (uint16)&stacks[index-1]>>8;
     addPriorityLinkedList(&readyQueue, &allTCBs[index]);
 }
 
@@ -41,20 +46,31 @@ void initPreemptiveMultitasking(void) {
     runningTCB = &allTCBs[0];
     runningTCB->next = NULL;
     runningTCB->priority = 0;
+
     createTask(allTCBs, 1, taskOne);
     createTask(allTCBs, 2, taskTwo);
 }
 
-void taskOne(void) {
+
+void taskOne(void)
+{
     int count1 = 0;
-    while(1) {
-        count1++;
+    
+    while(1)
+    {
+        acquireMutex(&mutex1);
+        setTimer0Overflowed();
+        releaseMutex(&mutex1);
     }
 }
 
-void taskTwo(void) {
+void taskTwo(void)
+{
     int count2 = 255;
-    while(1) {
-        count2--;
+    while(1)
+    {
+        acquireMutex(&mutex1);
+        setTimer0Overflowed();
+        releaseMutex(&mutex1);
     }
 }

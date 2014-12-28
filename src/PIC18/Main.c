@@ -1,9 +1,3 @@
-/* 
- * File:   Main.c
- * Author: Chiew Bing Xuan
- *
- * Created on September 29, 2014, 11:19 AM
- */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +11,7 @@
 #include "Interrupt.h"
 #include "PreemptiveOS.h"
 #include "../18c.h"
-
+#include "mutex.h"
 #if !(defined(__XC) || defined(__18CXX))
   #include "usart.h"
   #include "spi.h"
@@ -29,7 +23,7 @@
 #endif // __18CXX
 
 #pragma config OSC = INTIO67, PWRT = ON, WDT = OFF, LVP = OFF, DEBUG = ON
-
+extern mutexData mutex1,mutex2;
 #define setFreq8MHz() (OSCCONbits.IRCF = 7)
 
 #define configureUsartTo8Bits9600Baud()\
@@ -42,6 +36,18 @@
 
 void main(void) {
   int count;
+  
+  mutex1.count=0;
+  mutex1.owner=NULL;
+  mutex1.state=UNLOCKED;
+  mutex1.waitingQueue.head = NULL;
+  mutex1.waitingQueue.tail = NULL;
+
+  mutex2.count=0;
+  mutex2.owner=NULL;
+  mutex2.state=UNLOCKED;
+  mutex2.waitingQueue.head = NULL;
+  mutex2.waitingQueue.tail = NULL;
   initPreemptiveMultitasking();
   initClock();
   while(1)
@@ -51,7 +57,6 @@ void main(void) {
 }
 
 void xmain(void) {
-  // LEDData ledData;
   Led2Data led2Data;
   SevenSegmentData sevenSegData;
 
@@ -59,15 +64,11 @@ void xmain(void) {
   configureUsartTo8Bits9600Baud();
 
   initClock();
-  //initLed(&ledData);
   configureLED();
   initTasking(&led2Data);
   init7Segment(&sevenSegData);
   while(1) {
-    // ledSM(&ledData);
     led2SM(&led2Data);
     sevenSegmentSM(&sevenSegData);
   }
-  //CloseUSART();
-  //CloseSPI();
 }

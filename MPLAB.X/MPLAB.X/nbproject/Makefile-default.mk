@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../../src/PIC18/Clock.c ../../src/PIC18/Interrupt.c ../../src/PIC18/LEDSM.c ../../src/PIC18/Led2.c ../../src/PIC18/LoopBack.c ../../src/PIC18/PreemptiveOS.c ../../src/PIC18/PriorityLinkedList.c ../../src/PIC18/SevenSeg.c ../../src/PIC18/TCB.c ../../src/PIC18/UartLoopBack.c ../../src/PIC18/blinky.c ../../src/PIC18/main.c
+SOURCEFILES_QUOTED_IF_SPACED=../../src/PIC18/Clock.c ../../src/PIC18/Interrupt.c ../../src/PIC18/LEDSM.c ../../src/PIC18/Led2.c ../../src/PIC18/LoopBack.c ../../src/PIC18/PreemptiveOS.c ../../src/PIC18/PriorityLinkedList.c ../../src/PIC18/SevenSeg.c ../../src/PIC18/TCB.c ../../src/PIC18/UartLoopBack.c ../../src/PIC18/blinky.c ../../src/PIC18/main.c ../../src/PIC18/mutex.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/681521030/Clock.o ${OBJECTDIR}/_ext/681521030/Interrupt.o ${OBJECTDIR}/_ext/681521030/LEDSM.o ${OBJECTDIR}/_ext/681521030/Led2.o ${OBJECTDIR}/_ext/681521030/LoopBack.o ${OBJECTDIR}/_ext/681521030/PreemptiveOS.o ${OBJECTDIR}/_ext/681521030/PriorityLinkedList.o ${OBJECTDIR}/_ext/681521030/SevenSeg.o ${OBJECTDIR}/_ext/681521030/TCB.o ${OBJECTDIR}/_ext/681521030/UartLoopBack.o ${OBJECTDIR}/_ext/681521030/blinky.o ${OBJECTDIR}/_ext/681521030/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/681521030/Clock.o.d ${OBJECTDIR}/_ext/681521030/Interrupt.o.d ${OBJECTDIR}/_ext/681521030/LEDSM.o.d ${OBJECTDIR}/_ext/681521030/Led2.o.d ${OBJECTDIR}/_ext/681521030/LoopBack.o.d ${OBJECTDIR}/_ext/681521030/PreemptiveOS.o.d ${OBJECTDIR}/_ext/681521030/PriorityLinkedList.o.d ${OBJECTDIR}/_ext/681521030/SevenSeg.o.d ${OBJECTDIR}/_ext/681521030/TCB.o.d ${OBJECTDIR}/_ext/681521030/UartLoopBack.o.d ${OBJECTDIR}/_ext/681521030/blinky.o.d ${OBJECTDIR}/_ext/681521030/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/681521030/Clock.o ${OBJECTDIR}/_ext/681521030/Interrupt.o ${OBJECTDIR}/_ext/681521030/LEDSM.o ${OBJECTDIR}/_ext/681521030/Led2.o ${OBJECTDIR}/_ext/681521030/LoopBack.o ${OBJECTDIR}/_ext/681521030/PreemptiveOS.o ${OBJECTDIR}/_ext/681521030/PriorityLinkedList.o ${OBJECTDIR}/_ext/681521030/SevenSeg.o ${OBJECTDIR}/_ext/681521030/TCB.o ${OBJECTDIR}/_ext/681521030/UartLoopBack.o ${OBJECTDIR}/_ext/681521030/blinky.o ${OBJECTDIR}/_ext/681521030/main.o ${OBJECTDIR}/_ext/681521030/mutex.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/681521030/Clock.o.d ${OBJECTDIR}/_ext/681521030/Interrupt.o.d ${OBJECTDIR}/_ext/681521030/LEDSM.o.d ${OBJECTDIR}/_ext/681521030/Led2.o.d ${OBJECTDIR}/_ext/681521030/LoopBack.o.d ${OBJECTDIR}/_ext/681521030/PreemptiveOS.o.d ${OBJECTDIR}/_ext/681521030/PriorityLinkedList.o.d ${OBJECTDIR}/_ext/681521030/SevenSeg.o.d ${OBJECTDIR}/_ext/681521030/TCB.o.d ${OBJECTDIR}/_ext/681521030/UartLoopBack.o.d ${OBJECTDIR}/_ext/681521030/blinky.o.d ${OBJECTDIR}/_ext/681521030/main.o.d ${OBJECTDIR}/_ext/681521030/mutex.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/681521030/Clock.o ${OBJECTDIR}/_ext/681521030/Interrupt.o ${OBJECTDIR}/_ext/681521030/LEDSM.o ${OBJECTDIR}/_ext/681521030/Led2.o ${OBJECTDIR}/_ext/681521030/LoopBack.o ${OBJECTDIR}/_ext/681521030/PreemptiveOS.o ${OBJECTDIR}/_ext/681521030/PriorityLinkedList.o ${OBJECTDIR}/_ext/681521030/SevenSeg.o ${OBJECTDIR}/_ext/681521030/TCB.o ${OBJECTDIR}/_ext/681521030/UartLoopBack.o ${OBJECTDIR}/_ext/681521030/blinky.o ${OBJECTDIR}/_ext/681521030/main.o
+OBJECTFILES=${OBJECTDIR}/_ext/681521030/Clock.o ${OBJECTDIR}/_ext/681521030/Interrupt.o ${OBJECTDIR}/_ext/681521030/LEDSM.o ${OBJECTDIR}/_ext/681521030/Led2.o ${OBJECTDIR}/_ext/681521030/LoopBack.o ${OBJECTDIR}/_ext/681521030/PreemptiveOS.o ${OBJECTDIR}/_ext/681521030/PriorityLinkedList.o ${OBJECTDIR}/_ext/681521030/SevenSeg.o ${OBJECTDIR}/_ext/681521030/TCB.o ${OBJECTDIR}/_ext/681521030/UartLoopBack.o ${OBJECTDIR}/_ext/681521030/blinky.o ${OBJECTDIR}/_ext/681521030/main.o ${OBJECTDIR}/_ext/681521030/mutex.o
 
 # Source Files
-SOURCEFILES=../../src/PIC18/Clock.c ../../src/PIC18/Interrupt.c ../../src/PIC18/LEDSM.c ../../src/PIC18/Led2.c ../../src/PIC18/LoopBack.c ../../src/PIC18/PreemptiveOS.c ../../src/PIC18/PriorityLinkedList.c ../../src/PIC18/SevenSeg.c ../../src/PIC18/TCB.c ../../src/PIC18/UartLoopBack.c ../../src/PIC18/blinky.c ../../src/PIC18/main.c
+SOURCEFILES=../../src/PIC18/Clock.c ../../src/PIC18/Interrupt.c ../../src/PIC18/LEDSM.c ../../src/PIC18/Led2.c ../../src/PIC18/LoopBack.c ../../src/PIC18/PreemptiveOS.c ../../src/PIC18/PriorityLinkedList.c ../../src/PIC18/SevenSeg.c ../../src/PIC18/TCB.c ../../src/PIC18/UartLoopBack.c ../../src/PIC18/blinky.c ../../src/PIC18/main.c ../../src/PIC18/mutex.c
 
 
 CFLAGS=
@@ -185,6 +185,14 @@ ${OBJECTDIR}/_ext/681521030/main.o: ../../src/PIC18/main.c  nbproject/Makefile-$
 	@${DEP_GEN} -d ${OBJECTDIR}/_ext/681521030/main.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/681521030/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
+${OBJECTDIR}/_ext/681521030/mutex.o: ../../src/PIC18/mutex.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/681521030 
+	@${RM} ${OBJECTDIR}/_ext/681521030/mutex.o.d 
+	@${RM} ${OBJECTDIR}/_ext/681521030/mutex.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -ms -oa-  -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/681521030/mutex.o   ../../src/PIC18/mutex.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/681521030/mutex.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/681521030/mutex.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
 else
 ${OBJECTDIR}/_ext/681521030/Clock.o: ../../src/PIC18/Clock.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/681521030 
@@ -281,6 +289,14 @@ ${OBJECTDIR}/_ext/681521030/main.o: ../../src/PIC18/main.c  nbproject/Makefile-$
 	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -oa-  -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/681521030/main.o   ../../src/PIC18/main.c 
 	@${DEP_GEN} -d ${OBJECTDIR}/_ext/681521030/main.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/681521030/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/681521030/mutex.o: ../../src/PIC18/mutex.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/681521030 
+	@${RM} ${OBJECTDIR}/_ext/681521030/mutex.o.d 
+	@${RM} ${OBJECTDIR}/_ext/681521030/mutex.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -oa-  -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/681521030/mutex.o   ../../src/PIC18/mutex.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/681521030/mutex.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/681521030/mutex.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
 endif
 

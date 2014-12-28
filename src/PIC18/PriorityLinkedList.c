@@ -45,11 +45,14 @@ void _addPriorityLinkedList(PriorityLinkedList *list,void *data,int compare(void
 }
 
 void *removeFromHeadPriorityLinkedList(PriorityLinkedList *list) {
-  Element *itemPointer = list->head;
-  if(itemPointer != NULL) {
-    list->head = itemPointer->next;
-    if(itemPointer->next == NULL)
+  Element *temp = list->head;
+  if(temp != NULL) {
+    list->head = temp->next;
+    if(temp->next == NULL)
+    {
       list->tail = NULL;
+      list->head = NULL;
+    }
   }
-  return itemPointer;
+  return temp;
 }

@@ -9,5 +9,5 @@ extern TCB allTCBs[3];
 extern PriorityLinkedList readyQueue;
 
 void initPreemptiveMultitasking(void);
-
+TCB *loadANewTaskToRunningTCB(void);
 #endif // PreemptiveOS_H

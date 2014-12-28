@@ -14,9 +14,9 @@ struct mutexData
 	TCB *owner; //AcquiredMutexTCB
 	PriorityLinkedList waitingQueue;
 };
-
+extern mutexData mutex1,mutex2;
 mutexData* initMutex();
-int acquireMutex(mutexData * data);
+void acquireMutex(mutexData * data);
 int releaseMutex(mutexData * data);
 
 #endif // mutex_H
